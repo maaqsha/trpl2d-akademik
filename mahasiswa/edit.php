@@ -11,8 +11,8 @@
 <body>
     <div class="container">
         <?php
-        require("koneksi.php");
-        $edit = mysqli_query($db, "SELECT * FROM mahasiswa WHERE nim='$_GET[nim]'");
+        require(__DIR__ . '/../koneksi.php');
+        $edit = mysqli_query($koneksi, "SELECT * FROM mahasiswa WHERE nim='$_GET[nim]'");
         $data = mysqli_fetch_array($edit);
         ?>
 
@@ -50,7 +50,7 @@
         $nama = $_POST["nama_mhs"];
         $tgl = $_POST["tgl_lahir"];
         $alamat = $_POST["alamat"];
-        $query = mysqli_query($db, "UPDATE mahasiswa SET nim='$nim_new', nama_mhs='$nama', tgl_lahir='$tgl', alamat='$alamat' WHERE nim='$_GET[nim]'");
+        $query = mysqli_query($koneksi, "UPDATE mahasiswa SET nim='$nim_new', nama_mhs='$nama', tgl_lahir='$tgl', alamat='$alamat' WHERE nim='$_GET[nim]'");
         if ($query) {
             Header("Location: index.php?page=mahasiswa");
         } else {
