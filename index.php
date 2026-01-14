@@ -1,5 +1,14 @@
 <?php
 require_once 'koneksi.php';
+
+// session | cookies
+session_start();
+
+//cek login sudah ada atau belum
+if (!isset($_SESSION['login'])) {
+    header('location: login.php');
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -7,18 +16,9 @@ require_once 'koneksi.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php
-    include("koneksi.php");
-    ?>
-    <!doctype html>
-    <html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Mahasiswa</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
+    <title>Mahasiswa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-warning">
@@ -28,6 +28,8 @@ require_once 'koneksi.php';
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=mahasiswa">Mahasiswa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?page=prodi">Prodi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -39,18 +41,30 @@ require_once 'koneksi.php';
 
         if ($page == "mahasiswa") {
 
-            include("list.php");
+            include("mahasiswa/list.php");
         }
         if ($page == "home") {
             include("home.php");
         }
 
         if ($page == "create") {
-            include("create.php");
+            include("mahasiswa/create.php");
         }
 
         if ($page == "edit") {
-            include("edit.php");
+            include("mahasiswa/edit.php");
+        }
+
+        if ($page == "prodi") {
+            include("prodi/listp.php");
+        }
+
+        if ($page == "prodi-create") {
+            include("prodi/createp.php");
+        }
+
+        if ($page == "prodi-edit") {
+            include("prodi/editp.php");
         }
         ?>
     </div>

@@ -13,8 +13,8 @@
     </thead>
     <tbody>
         <?php
-        require("koneksi.php");
-        $tampil = mysqli_query($db, "SELECT * FROM mahasiswa");
+        require(__DIR__ . '/../koneksi.php');
+        $tampil = mysqli_query($koneksi, "SELECT * FROM mahasiswa");
         // Loop data mahasiswa
         $i = 1;
         while ($data = mysqli_fetch_assoc($tampil)) {

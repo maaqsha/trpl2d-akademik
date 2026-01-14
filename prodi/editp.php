@@ -1,7 +1,7 @@
 <?php
-require 'koneksi.php';
+require __DIR__ . '/../koneksi.php';
 $id = $_GET['id'];
-$sql = $db->query("SELECT * FROM prodi WHERE id = '$id'");
+$sql = $koneksi->query("SELECT * FROM prodi WHERE id = '$id'");
 $data = $sql->fetch_assoc();
 ?>
 <!DOCTYPE html>
@@ -39,7 +39,7 @@ $data = $sql->fetch_assoc();
             </div>
             <div>
                 <button type="submit" name="submitp" class="btn btn-success">Update</button>
-                <a href="index.php?page=dataprodi" class="btn btn-secondary">Kembali</a>
+                <a href="index.php?page=prodi" class="btn btn-secondary">Kembali</a>
             </div>
         </form>
 </body>
