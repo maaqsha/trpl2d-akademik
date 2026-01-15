@@ -1,5 +1,5 @@
 <?php
-require_once 'koneksi.php';
+require_once '../includes/koneksi.php';
 ?>
 <!doctype html>
 <html lang="en">

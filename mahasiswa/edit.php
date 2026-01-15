@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <?php
-        require(__DIR__ . '/../koneksi.php');
+        require(__DIR__ . '/../includes/koneksi.php');
         $edit = mysqli_query($koneksi, "SELECT * FROM mahasiswa WHERE nim='$_GET[nim]'");
         $data = mysqli_fetch_array($edit);
         ?>

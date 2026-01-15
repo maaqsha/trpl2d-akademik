@@ -4,54 +4,58 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Login - Akademik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-5">
+                        <h1 class="card-title text-center mb-4">Login Akademik</h1>
 
+                        <?php
+                        if (isset($_POST['submit'])) {
+                            $email = $_POST['email'];
+                            $pass = md5($_POST['password']);
 
-    <form action="" method="post" class="mx-5 my-5">
-        <h1>Login Akademik</h1>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-            <div id="emailHelp" class="form-text">Email Admin</div>
+                            require 'includes/koneksi.php';
+                            $ceklogin = "SELECT * FROM pengguna WHERE email='$email' AND password='$pass'";
+                            $result = $koneksi->query($ceklogin);
+
+                            if ($result->num_rows > 0) {
+                                $user = $result->fetch_assoc();
+                                session_start();
+                                $_SESSION['login'] = TRUE;
+                                $_SESSION['email'] = $email;
+                                $_SESSION['nama'] = $user['nama'];
+                                header('location: index.php');
+                            } else {
+                                echo '<div class="alert alert-danger mb-4">Email atau password salah!</div>';
+                            }
+                        }
+                        ?>
+
+                        <form action="" method="post">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input name="email" type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input name="password" type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" name="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input name="password" type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Keep Login</label>
-        </div>
-        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
 
-    <?php
-    if (isset($_POST['submit'])) {
-        $email = $_POST['email'];
-        $pass = md5($_POST['password']);
-
-        require 'koneksi.php';
-        //cek credentials
-        $ceklogin = "SELECT * FROM pengguna WHERE email='$email' AND password='$pass'";
-        $result = $koneksi->query($ceklogin);
-
-        if ($result->num_rows > 0) {
-            //echo "Login berhasil!";
-            session_start();
-            $_SESSION['login'] = TRUE;
-            $_SESSION['email'] = $email;
-            header('location: index.php');
-        } else {
-            echo "Login gagal!";
-        }
-    }
-    ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

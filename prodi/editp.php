@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../koneksi.php';
+require __DIR__ . '/../includes/koneksi.php';
 $id = $_GET['id'];
 $sql = $koneksi->query("SELECT * FROM prodi WHERE id = '$id'");
 $data = $sql->fetch_assoc();
